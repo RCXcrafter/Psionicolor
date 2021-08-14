@@ -68,7 +68,7 @@ public class PsionicolorLang extends LanguageProvider {
 		addPiece(TRICK_CONJURE_COLORED_BLOCK, "Trick: Conjure Colored Block", "Conjures a fragile block");
 		addPiece(TRICK_CONJURE_COLORED_LIGHT, "Trick: Conjure Colored Light", "Conjures a fragile light");
 		addPiece(TRICK_FILL_COLORIZER, "Trick: Fill Colorizer", "Fills a configurable colorizer with the specified color");
-		addPiece(TRICK_FILL_CASTER_COLORIZER, "Trick: Fill Caster Colorizer", "Fills a configurable colorizer in the casters CAD with the specified color");
+		addPiece(TRICK_FILL_CASTER_COLORIZER, "Trick: Fill Caster Colorizer", "Fills a configurable colorizer in the caster's CAD with the specified color");
 	}
 
 	public void addTooltip(Item key, String tooltip) {
