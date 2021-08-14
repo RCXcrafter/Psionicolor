@@ -1,0 +1,26 @@
+{
+  "type": "psionicolor:crafting_hybrid_colorizer_shaped",
+  "group": "psi:colorizer",
+  "pattern": [
+    " DB",
+    "GCG",
+    " C "
+  ],
+  "key": {
+    "D": {
+      "tag": "psi:psidust"
+    },
+    "B": {
+      "item": "minecraft:stone_button"
+    },
+    "G": {
+      "tag": "forge:glass"
+    },
+    "C": {
+      "tag": "psi:colorizers"
+    }
+  },
+  "result": {
+    "item": "psionicolor:cad_colorizer_triggered"
+  }
+}

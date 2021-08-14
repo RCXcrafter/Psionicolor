@@ -1,0 +1,32 @@
+{
+  "replace": false,
+  "values": [
+    "psionicolor:cad_colorizer_hybrid",
+    "psionicolor:cad_colorizer_indicator",
+    "psionicolor:cad_colorizer_triggered",
+    "psionicolor:cad_colorizer_white_neon",
+    "psionicolor:cad_colorizer_orange_neon",
+    "psionicolor:cad_colorizer_magenta_neon",
+    "psionicolor:cad_colorizer_light_blue_neon",
+    "psionicolor:cad_colorizer_yellow_neon",
+    "psionicolor:cad_colorizer_lime_neon",
+    "psionicolor:cad_colorizer_pink_neon",
+    "psionicolor:cad_colorizer_gray_neon",
+    "psionicolor:cad_colorizer_light_gray_neon",
+    "psionicolor:cad_colorizer_cyan_neon",
+    "psionicolor:cad_colorizer_purple_neon",
+    "psionicolor:cad_colorizer_blue_neon",
+    "psionicolor:cad_colorizer_brown_neon",
+    "psionicolor:cad_colorizer_green_neon",
+    "psionicolor:cad_colorizer_red_neon",
+    "psionicolor:cad_colorizer_black_neon",
+    "psionicolor:cad_colorizer_configurable",
+    "psionicolor:cad_colorizer_clock",
+    "psionicolor:cad_colorizer_rockin",
+    "psionicolor:cad_colorizer_random",
+    "psionicolor:cad_colorizer_grape",
+    "psionicolor:cad_colorizer_lemon_lime",
+    "psionicolor:cad_colorizer_fire",
+    "psionicolor:cad_colorizer_rainbow"
+  ]
+}

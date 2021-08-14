@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "psi:colorizer",
+  "ingredients": [
+    {
+      "item": "psi:cad_colorizer_brown"
+    },
+    {
+      "tag": "forge:dusts/glowstone"
+    }
+  ],
+  "result": {
+    "item": "psionicolor:cad_colorizer_brown_neon"
+  }
+}

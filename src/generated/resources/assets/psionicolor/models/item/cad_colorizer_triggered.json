@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "psionicolor:item/triggered_dye_cannister",
+    "layer1": "psionicolor:item/hybrid_dye_cannister_inside_primary",
+    "layer2": "psionicolor:item/triggered_dye_cannister_inside_secondary",
+    "layer3": "psionicolor:item/hybrid_dye_cannister_overlay"
+  }
+}

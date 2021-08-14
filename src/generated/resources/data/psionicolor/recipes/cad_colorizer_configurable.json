@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "psi:colorizer",
+  "ingredients": [
+    {
+      "item": "psi:cad_colorizer_empty"
+    },
+    {
+      "tag": "forge:dyes/cyan"
+    },
+    {
+      "tag": "forge:dyes/yellow"
+    },
+    {
+      "tag": "forge:dyes/magenta"
+    },
+    {
+      "tag": "psi:ebony_substance"
+    }
+  ],
+  "result": {
+    "item": "psionicolor:cad_colorizer_configurable"
+  }
+}

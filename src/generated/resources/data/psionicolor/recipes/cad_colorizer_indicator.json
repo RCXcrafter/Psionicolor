@@ -1,0 +1,26 @@
+{
+  "type": "psionicolor:crafting_hybrid_colorizer_shaped",
+  "group": "psi:colorizer",
+  "pattern": [
+    " D ",
+    "BCG",
+    " C "
+  ],
+  "key": {
+    "D": {
+      "tag": "psi:psidust"
+    },
+    "B": {
+      "item": "psi:cad_battery_basic"
+    },
+    "G": {
+      "tag": "forge:glass"
+    },
+    "C": {
+      "tag": "psi:colorizers"
+    }
+  },
+  "result": {
+    "item": "psionicolor:cad_colorizer_indicator"
+  }
+}

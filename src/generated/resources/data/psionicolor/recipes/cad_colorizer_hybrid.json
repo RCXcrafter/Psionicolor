@@ -1,0 +1,23 @@
+{
+  "type": "psionicolor:crafting_hybrid_colorizer_shaped",
+  "group": "psi:colorizer",
+  "pattern": [
+    " D ",
+    "GCG",
+    " C "
+  ],
+  "key": {
+    "D": {
+      "tag": "psi:psidust"
+    },
+    "G": {
+      "tag": "forge:glass"
+    },
+    "C": {
+      "tag": "psi:colorizers"
+    }
+  },
+  "result": {
+    "item": "psionicolor:cad_colorizer_hybrid"
+  }
+}

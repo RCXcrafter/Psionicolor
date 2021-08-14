@@ -1,0 +1,38 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT License"
+issueTrackerURL="https://github.com/RCXcrafter/Psionicolor/issues"
+
+[[mods]]
+modId="psionicolor"
+version="${file.jarVersion}"
+displayName="Psionicolor"
+#updateJSONURL="https://change.me.example.invalid/updates.json"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/psionicolor"
+logoFile="psionicolor_logo.png"
+#credits=""
+authors="RCXcrafter"
+description='''
+TODO
+'''
+
+[[dependencies.psionicolor]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.psionicolor]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="${minecraft_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.psionicolor]]
+    modId="psi"
+    mandatory=true
+    versionRange="${psi_range}"
+    ordering="NONE"
+    side="BOTH"
