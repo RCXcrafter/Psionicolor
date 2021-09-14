@@ -63,10 +63,13 @@ public class Psionicolor {
 
 		@SubscribeEvent
 		public void onCadTake(CADTakeEvent event) {
-			ItemStack dyeStack = ((ICAD) event.getCad().getItem()).getComponentInSlot(event.getCad(), EnumCADComponent.DYE);
-			if (dyeStack.getItem() instanceof IPlayerboundColorizer) {
-				dyeStack.getOrCreateTag().putUniqueId(IPlayerboundColorizer.OWNING_PLAYER, PlayerEntity.getUUID(event.getPlayer().getGameProfile()));
-				ItemCAD.setComponent(event.getCad(), dyeStack);
+			Item cadItem = event.getCad().getItem();
+			if (cadItem instanceof ICAD) {
+				ItemStack dyeStack = ((ICAD) cadItem).getComponentInSlot(event.getCad(), EnumCADComponent.DYE);
+				if (dyeStack.getItem() instanceof IPlayerboundColorizer) {
+					dyeStack.getOrCreateTag().putUniqueId(IPlayerboundColorizer.OWNING_PLAYER, PlayerEntity.getUUID(event.getPlayer().getGameProfile()));
+					ItemCAD.setComponent(event.getCad(), dyeStack);
+				}
 			}
 		}
 
