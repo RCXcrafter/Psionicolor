@@ -15,7 +15,7 @@ public class PsionicolorLang extends LanguageProvider {
 
 	public static final String SELECTOR_NEARBY_COLORIZERS = "selector_nearby_colorizers";
 	public static final String OPERATOR_ENTITY_COLORIZER = "operator_entity_colorizer";
-	//public static final String OPERATOR_COLORIZER_COLOR = "operator_colorizer_color";
+	public static final String OPERATOR_CONFIGURED_COLOR = "operator_configured_color";
 	public static final String TRICK_CONJURE_COLORED_BLOCK = "trick_conjure_colored_block";
 	public static final String TRICK_CONJURE_COLORED_LIGHT = "trick_conjure_colored_light";
 	public static final String TRICK_FILL_COLORIZER = "trick_fill_colorizer";
@@ -64,7 +64,7 @@ public class PsionicolorLang extends LanguageProvider {
 		add(GENERIC_NAME_COLOR, "Color");
 		addPiece(SELECTOR_NEARBY_COLORIZERS, "Selector: Nearby Colorizers", "Selects colorizer items near the given position");
 		addPiece(OPERATOR_ENTITY_COLORIZER, "Operator: Entity Colorizer", "Gets the colorizer in the cad of the selected entity, can't be modified");
-		//addPiece(OPERATOR_COLORIZER_COLOR, "Operator: Colorizer Color", "Gets the current Color from a colorizer");
+		addPiece(OPERATOR_CONFIGURED_COLOR, "Operator: Configured Color", "Gets the current Color from a configurable colorizer");
 		addPiece(TRICK_CONJURE_COLORED_BLOCK, "Trick: Conjure Colored Block", "Conjures a fragile block");
 		addPiece(TRICK_CONJURE_COLORED_LIGHT, "Trick: Conjure Colored Light", "Conjures a fragile light");
 		addPiece(TRICK_FILL_COLORIZER, "Trick: Fill Colorizer", "Fills a configurable colorizer with the specified color");

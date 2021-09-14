@@ -1,10 +1,10 @@
 package com.rcx.psionicolor.spell;
 
 import com.rcx.psionicolor.datagen.PsionicolorLang;
+import com.rcx.psionicolor.item.ItemCADColorizerConfigurable;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import vazkii.psi.api.cad.ICADColorizer;
 import vazkii.psi.api.internal.Vector3;
@@ -15,11 +15,11 @@ import vazkii.psi.api.spell.SpellRuntimeException;
 import vazkii.psi.api.spell.param.ParamEntity;
 import vazkii.psi.api.spell.piece.PieceOperator;
 
-public class PieceOperatorColorizerColor extends PieceOperator {
+public class PieceOperatorConfiguredColor extends PieceOperator {
 
 	SpellParam<Entity> colorizer;
 
-	public PieceOperatorColorizerColor(Spell spell) {
+	public PieceOperatorConfiguredColor(Spell spell) {
 		super(spell);
 	}
 
@@ -35,16 +35,14 @@ public class PieceOperatorColorizerColor extends PieceOperator {
 		if (e == null || !(e instanceof ItemEntity) || !(((ItemEntity) e).getItem().getItem() instanceof ICADColorizer)) {
 			throw new SpellRuntimeException(SpellRuntimeException.NULL_TARGET);
 		}
-		if (context.caster instanceof ServerPlayerEntity)
-			return null;
 
 		ItemStack stack = ((ItemEntity) e).getItem();
 
-		//PsionicolorPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) context.caster), new PsionicolorPacketHandler.ColorRequestMessage(stack));
-
-		
-		int color = ((ICADColorizer) stack.getItem()).getColor(stack);
-		return new Vector3((0xFF0000 & color) >> 16, (0x00FF00 & color) >> 8, 0x0000FF & color);
+		if (stack != null && stack.hasTag() && stack.getTag().contains(ItemCADColorizerConfigurable.COLOR)) {
+			int color = stack.getTag().getInt(ItemCADColorizerConfigurable.COLOR);
+			return new Vector3((0xFF0000 & color) >> 16, (0x00FF00 & color) >> 8, 0x0000FF & color);
+		} else
+			throw new SpellRuntimeException(SpellRuntimeException.NULL_TARGET);
 	}
 
 	@Override

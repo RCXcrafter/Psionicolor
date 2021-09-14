@@ -32,6 +32,8 @@
   "item.psionicolor.cad_colorizer_yellow_neon": "Neon Yellow CAD Colorizer",
   "psionicolor.spellparam.color": "Color",
   "psionicolor.spellparam.colorizer": "Colorizer",
+  "psionicolor.spellpiece.operator_configured_color": "Operator: Configured Color",
+  "psionicolor.spellpiece.operator_configured_color.desc": "Gets the current Color from a configurable colorizer",
   "psionicolor.spellpiece.operator_entity_colorizer": "Operator: Entity Colorizer",
   "psionicolor.spellpiece.operator_entity_colorizer.desc": "Gets the colorizer in the cad of the selected entity, can't be modified",
   "psionicolor.spellpiece.selector_nearby_colorizers": "Selector: Nearby Colorizers",
