@@ -30,7 +30,7 @@ public class PieceTrickFillColorizer extends PieceTrick {
 
 	@Override
 	public void initParams() {
-		addParam(color = new ParamVector(PsionicolorLang.GENERIC_NAME_COLOR, SpellParam.GREEN, false, false));
+		addParam(color = new ParamVector(PsionicolorLang.GENERIC_NAME_COLOR_RGB, SpellParam.GREEN, false, false));
 		addParam(colorizer = new ParamEntity(PsionicolorLang.GENERIC_NAME_COLORIZER, SpellParam.YELLOW, false, false));
 	}
 

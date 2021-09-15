@@ -11,11 +11,14 @@ import net.minecraftforge.common.data.LanguageProvider;
 public class PsionicolorLang extends LanguageProvider {
 
 	public static final String GENERIC_NAME_COLORIZER = "psionicolor.spellparam.colorizer";
-	public static final String GENERIC_NAME_COLOR = "psionicolor.spellparam.color";
+	public static final String GENERIC_NAME_COLOR_RGB = "psionicolor.spellparam.color_rgb";
+	public static final String GENERIC_NAME_COLOR_HSV = "psionicolor.spellparam.color_hsv";
 
 	public static final String SELECTOR_NEARBY_COLORIZERS = "selector_nearby_colorizers";
 	public static final String OPERATOR_ENTITY_COLORIZER = "operator_entity_colorizer";
 	public static final String OPERATOR_CONFIGURED_COLOR = "operator_configured_color";
+	public static final String OPERATOR_RGB_TO_HSV = "operator_rgb_to_hsv";
+	public static final String OPERATOR_HSV_TO_RGB = "operator_hsv_to_rgb";
 	public static final String TRICK_CONJURE_COLORED_BLOCK = "trick_conjure_colored_block";
 	public static final String TRICK_CONJURE_COLORED_LIGHT = "trick_conjure_colored_light";
 	public static final String TRICK_FILL_COLORIZER = "trick_fill_colorizer";
@@ -61,10 +64,13 @@ public class PsionicolorLang extends LanguageProvider {
 		add(PsionicolorResources.RAINBOW_COLORIZER.get(), "Clown Vomit CAD Colorizer");
 
 		add(GENERIC_NAME_COLORIZER, "Colorizer");
-		add(GENERIC_NAME_COLOR, "Color");
+		add(GENERIC_NAME_COLOR_RGB, "Color RGB");
+		add(GENERIC_NAME_COLOR_HSV, "Color HSV");
 		addPiece(SELECTOR_NEARBY_COLORIZERS, "Selector: Nearby Colorizers", "Selects colorizer items near the given position");
 		addPiece(OPERATOR_ENTITY_COLORIZER, "Operator: Entity Colorizer", "Gets the colorizer in the cad of the selected entity, can't be modified");
 		addPiece(OPERATOR_CONFIGURED_COLOR, "Operator: Configured Color", "Gets the current Color from a configurable colorizer");
+		addPiece(OPERATOR_RGB_TO_HSV, "Operator: RGB To HSV", "Converts Red Green Blue to Hue Saturation Value");
+		addPiece(OPERATOR_HSV_TO_RGB, "Operator: HSV To RGB", "Converts Hue Saturation Value To Red Green Blue");
 		addPiece(TRICK_CONJURE_COLORED_BLOCK, "Trick: Conjure Colored Block", "Conjures a fragile block");
 		addPiece(TRICK_CONJURE_COLORED_LIGHT, "Trick: Conjure Colored Light", "Conjures a fragile light");
 		addPiece(TRICK_FILL_COLORIZER, "Trick: Fill Colorizer", "Fills a configurable colorizer with the specified color");

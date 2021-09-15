@@ -47,7 +47,7 @@ public class PieceTrickConjureColoredBlock extends PieceTrick {
 	public void initParams() {
 		addParam(position = new ParamVector(SpellParam.GENERIC_NAME_POSITION, SpellParam.BLUE, false, false));
 		addParam(time = new ParamNumber(SpellParam.GENERIC_NAME_TIME, SpellParam.RED, true, false));
-		addParam(color = new ParamVector(PsionicolorLang.GENERIC_NAME_COLOR, SpellParam.GREEN, true, false));
+		addParam(color = new ParamVector(PsionicolorLang.GENERIC_NAME_COLOR_RGB, SpellParam.GREEN, true, false));
 		addParam(colorizer = new ParamEntity(PsionicolorLang.GENERIC_NAME_COLORIZER, SpellParam.YELLOW, true, false));
 	}
 

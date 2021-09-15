@@ -16,6 +16,8 @@ public class PsionicolorSpellPieces {
 
 	public static PieceContainer operatorEntityColorizer;
 	public static PieceContainer operatorConfiguredColor;
+	public static PieceContainer operatorRGBToHSV;
+	public static PieceContainer operatorHSVToRGB;
 
 	public static PieceContainer trickConjureColoredBlock;
 	public static PieceContainer trickConjureColoredLight;
@@ -27,6 +29,8 @@ public class PsionicolorSpellPieces {
 
 		operatorEntityColorizer = register(PieceOperatorEntityColorizer.class, PsionicolorLang.OPERATOR_ENTITY_COLORIZER, LibPieceGroups.ENTITIES_INTRO);
 		operatorConfiguredColor = register(PieceOperatorConfiguredColor.class, PsionicolorLang.OPERATOR_CONFIGURED_COLOR, LibPieceGroups.VECTORS_INTRO);
+		operatorRGBToHSV = register(PieceOperatorRGBToHSV.class, PsionicolorLang.OPERATOR_RGB_TO_HSV, LibPieceGroups.VECTORS_INTRO);
+		operatorHSVToRGB = register(PieceOperatorHSVToRGB.class, PsionicolorLang.OPERATOR_HSV_TO_RGB, LibPieceGroups.VECTORS_INTRO);
 
 		trickConjureColoredBlock = register(PieceTrickConjureColoredBlock.class, PsionicolorLang.TRICK_CONJURE_COLORED_BLOCK, LibPieceGroups.BLOCK_CONJURATION);
 		trickConjureColoredLight = register(PieceTrickConjureColoredLight.class, PsionicolorLang.TRICK_CONJURE_COLORED_LIGHT, LibPieceGroups.BLOCK_CONJURATION);
