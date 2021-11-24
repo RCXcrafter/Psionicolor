@@ -15,9 +15,6 @@ import com.rcx.psionicolor.item.ItemCADColorizerHybrid;
 import com.rcx.psionicolor.misc.HybridColorizerRecipe;
 import com.rcx.psionicolor.spell.PsionicolorSpellPieces;
 
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
@@ -25,7 +22,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -45,11 +41,8 @@ import vazkii.psi.api.cad.CADTakeEvent;
 import vazkii.psi.api.cad.EnumCADComponent;
 import vazkii.psi.api.cad.ICAD;
 import vazkii.psi.api.spell.PreSpellCastEvent;
-import vazkii.psi.common.Psi;
-import vazkii.psi.common.block.tile.TileConjured;
 import vazkii.psi.common.item.ItemCAD;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod("psionicolor")
 @Mod.EventBusSubscriber(bus = Bus.MOD)
 public class Psionicolor {
@@ -69,7 +62,7 @@ public class Psionicolor {
 	}
 
 	public void ClientSetup(FMLClientSetupEvent event) {
-		RenderTypeLookup.setRenderLayer(PsionicolorResources.SOLID_CONJURED_BLOCK.get(), RenderType.getTranslucent());
+		//RenderTypeLookup.setRenderLayer(PsionicolorResources.SOLID_CONJURED_BLOCK.get(), RenderType.getTranslucent());
 	}
 
 	public static class ColorizerEvents {
@@ -172,7 +165,7 @@ public class Psionicolor {
 					PsionicolorResources.TRIGGERED_COLORIZER.get());
 		}
 
-		@SubscribeEvent
+		/*@SubscribeEvent
 		static void registerColorHandlers(ColorHandlerEvent.Block event) {
 			BlockColors colors = event.getBlockColors();
 			colors.register((state, world, pos, index) -> {
@@ -182,6 +175,6 @@ public class Psionicolor {
 
 				return -1;
 			}, PsionicolorResources.SOLID_CONJURED_BLOCK.get());
-		}
+		}*/
 	}
 }

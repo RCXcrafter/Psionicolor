@@ -1,4 +1,4 @@
-package com.rcx.psionicolor.spell;
+/*package com.rcx.psionicolor.spell;
 
 import com.rcx.psionicolor.PsionicolorResources;
 
@@ -14,4 +14,4 @@ public class PieceTrickConjureSolidBlock extends PieceTrickConjureColoredBlock {
 	public BlockState getState() {
 		return PsionicolorResources.SOLID_CONJURED_BLOCK.get().getDefaultState();
 	}
-}
+}*/

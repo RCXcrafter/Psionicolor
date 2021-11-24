@@ -34,7 +34,7 @@ public class PsionicolorSpellPieces {
 
 		trickConjureColoredBlock = register(PieceTrickConjureColoredBlock.class, PsionicolorLang.TRICK_CONJURE_COLORED_BLOCK, LibPieceGroups.BLOCK_CONJURATION);
 		trickConjureColoredLight = register(PieceTrickConjureColoredLight.class, PsionicolorLang.TRICK_CONJURE_COLORED_LIGHT, LibPieceGroups.BLOCK_CONJURATION);
-		trickConjureColoredBlock = register(PieceTrickConjureSolidBlock.class, PsionicolorLang.TRICK_CONJURE_SOLID_BLOCK, LibPieceGroups.BLOCK_CONJURATION);
+		//trickConjureColoredBlock = register(PieceTrickConjureSolidBlock.class, PsionicolorLang.TRICK_CONJURE_SOLID_BLOCK, LibPieceGroups.BLOCK_CONJURATION);
 		trickFillColorizer = register(PieceTrickFillColorizer.class, PsionicolorLang.TRICK_FILL_COLORIZER, LibPieceGroups.MISC_TRICKS);
 		trickFillCasterColorizer = register(PieceTrickFillCasterColorizer.class, PsionicolorLang.TRICK_FILL_CASTER_COLORIZER, LibPieceGroups.MISC_TRICKS);
 	}

@@ -64,7 +64,7 @@ public class PsionicolorLang extends LanguageProvider {
 		add(PsionicolorResources.FIRE_COLORIZER.get(), "Fiery CAD Colorizer");
 		add(PsionicolorResources.RAINBOW_COLORIZER.get(), "Clown Vomit CAD Colorizer");
 		
-		add(PsionicolorResources.SOLID_CONJURED_BLOCK.get(), "Conjured Block");
+		//add(PsionicolorResources.SOLID_CONJURED_BLOCK.get(), "Conjured Block");
 
 		add(GENERIC_NAME_COLORIZER, "Colorizer");
 		add(GENERIC_NAME_COLOR_RGB, "Color RGB");

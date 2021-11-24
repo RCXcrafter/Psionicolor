@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import com.rcx.psionicolor.block.BlockConjuredSolid;
 import com.rcx.psionicolor.item.ItemCADColorizerClock;
 import com.rcx.psionicolor.item.ItemCADColorizerConfigurable;
 import com.rcx.psionicolor.item.ItemCADColorizerFire;
@@ -18,10 +17,7 @@ import com.rcx.psionicolor.item.ItemCADColorizerSlidingColors;
 import com.rcx.psionicolor.item.ItemCADColorizerSwitchingColors;
 import com.rcx.psionicolor.item.ItemCADColorizerTriggered;
 
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -37,12 +33,12 @@ public class PsionicolorResources {
 	 * BLOCKS
 	 */
 
-	public static final AbstractBlock.IExtendedPositionPredicate<EntityType<?>> NO_SPAWN = (state, world, pos, et) -> false;
+	/*public static final AbstractBlock.IExtendedPositionPredicate<EntityType<?>> NO_SPAWN = (state, world, pos, et) -> false;
 	public static final AbstractBlock.IPositionPredicate FALSE_PREDICATE = (state, world, pos) -> false;
 	public static final AbstractBlock.IPositionPredicate TRUE_PREDICATE = (state, world, pos) -> true;
 
 	//solid conjured block
-	public static final RegistryObject<Block> SOLID_CONJURED_BLOCK = BLOCKS.register("solid_conjured_block", () -> new BlockConjuredSolid(Block.Properties.create(Material.GLASS).noDrops().notSolid().tickRandomly().setAllowsSpawn(NO_SPAWN).setOpaque(FALSE_PREDICATE).setSuffocates(FALSE_PREDICATE).setBlocksVision(FALSE_PREDICATE).setEmmisiveRendering(TRUE_PREDICATE)));
+	public static final RegistryObject<Block> SOLID_CONJURED_BLOCK = BLOCKS.register("solid_conjured_block", () -> new BlockConjuredSolid(Block.Properties.create(Material.GLASS).noDrops().notSolid().tickRandomly().setAllowsSpawn(NO_SPAWN).setOpaque(FALSE_PREDICATE).setSuffocates(FALSE_PREDICATE).setBlocksVision(FALSE_PREDICATE).setEmmisiveRendering(TRUE_PREDICATE)));*/
 
 	/*
 	 * ITEMS
