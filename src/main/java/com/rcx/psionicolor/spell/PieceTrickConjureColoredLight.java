@@ -6,6 +6,7 @@ import vazkii.psi.api.spell.Spell;
 import vazkii.psi.api.spell.SpellCompilationException;
 import vazkii.psi.api.spell.SpellMetadata;
 import vazkii.psi.common.block.BlockConjured;
+import vazkii.psi.common.block.base.ModBlocks;
 
 public class PieceTrickConjureColoredLight extends PieceTrickConjureColoredBlock {
 
@@ -20,7 +21,7 @@ public class PieceTrickConjureColoredLight extends PieceTrickConjureColoredBlock
 	}
 
 	@Override
-	public BlockState messWithState(BlockState state) {
-		return state.with(BlockConjured.LIGHT, true);
+	public BlockState getState() {
+		return ModBlocks.conjured.getDefaultState().with(BlockConjured.LIGHT, true);
 	}
 }

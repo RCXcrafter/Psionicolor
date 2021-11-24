@@ -15,6 +15,9 @@ import com.rcx.psionicolor.item.ItemCADColorizerHybrid;
 import com.rcx.psionicolor.misc.HybridColorizerRecipe;
 import com.rcx.psionicolor.spell.PsionicolorSpellPieces;
 
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
@@ -22,6 +25,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -34,12 +38,15 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import vazkii.psi.api.cad.CADTakeEvent;
 import vazkii.psi.api.cad.EnumCADComponent;
 import vazkii.psi.api.cad.ICAD;
 import vazkii.psi.api.spell.PreSpellCastEvent;
+import vazkii.psi.common.Psi;
+import vazkii.psi.common.block.tile.TileConjured;
 import vazkii.psi.common.item.ItemCAD;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -52,11 +59,17 @@ public class Psionicolor {
 	public Psionicolor() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
+		bus.addListener(this::ClientSetup);
+
 		PsionicolorResources.BLOCKS.register(bus);
 		PsionicolorResources.ITEMS.register(bus);
 
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new ColorizerEvents());
+	}
+
+	public void ClientSetup(FMLClientSetupEvent event) {
+		RenderTypeLookup.setRenderLayer(PsionicolorResources.SOLID_CONJURED_BLOCK.get(), RenderType.getTranslucent());
 	}
 
 	public static class ColorizerEvents {
@@ -157,6 +170,18 @@ public class Psionicolor {
 					PsionicolorResources.HYBRID_COLORIZER.get(),
 					PsionicolorResources.INDICATOR_COLORIZER.get(),
 					PsionicolorResources.TRIGGERED_COLORIZER.get());
+		}
+
+		@SubscribeEvent
+		static void registerColorHandlers(ColorHandlerEvent.Block event) {
+			BlockColors colors = event.getBlockColors();
+			colors.register((state, world, pos, index) -> {
+				TileEntity inWorld = world.getTileEntity(pos);
+				if (inWorld instanceof TileConjured)
+					return Psi.proxy.getColorForColorizer(((TileConjured) inWorld).colorizer);
+
+				return -1;
+			}, PsionicolorResources.SOLID_CONJURED_BLOCK.get());
 		}
 	}
 }

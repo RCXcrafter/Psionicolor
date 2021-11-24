@@ -21,6 +21,7 @@ public class PsionicolorLang extends LanguageProvider {
 	public static final String OPERATOR_HSV_TO_RGB = "operator_hsv_to_rgb";
 	public static final String TRICK_CONJURE_COLORED_BLOCK = "trick_conjure_colored_block";
 	public static final String TRICK_CONJURE_COLORED_LIGHT = "trick_conjure_colored_light";
+	public static final String TRICK_CONJURE_SOLID_BLOCK = "trick_conjure_solid_block";
 	public static final String TRICK_FILL_COLORIZER = "trick_fill_colorizer";
 	public static final String TRICK_FILL_CASTER_COLORIZER = "trick_fill_caster_colorizer";
 
@@ -62,6 +63,8 @@ public class PsionicolorLang extends LanguageProvider {
 		addTooltip(PsionicolorResources.LEMON_LIME_COLORIZER.get(), "Not suitable for consumption");
 		add(PsionicolorResources.FIRE_COLORIZER.get(), "Fiery CAD Colorizer");
 		add(PsionicolorResources.RAINBOW_COLORIZER.get(), "Clown Vomit CAD Colorizer");
+		
+		add(PsionicolorResources.SOLID_CONJURED_BLOCK.get(), "Conjured Block");
 
 		add(GENERIC_NAME_COLORIZER, "Colorizer");
 		add(GENERIC_NAME_COLOR_RGB, "Color RGB");
@@ -73,6 +76,7 @@ public class PsionicolorLang extends LanguageProvider {
 		addPiece(OPERATOR_HSV_TO_RGB, "Operator: HSV To RGB", "Converts Hue Saturation Value To Red Green Blue");
 		addPiece(TRICK_CONJURE_COLORED_BLOCK, "Trick: Conjure Colored Block", "Conjures a fragile block");
 		addPiece(TRICK_CONJURE_COLORED_LIGHT, "Trick: Conjure Colored Light", "Conjures a fragile light");
+		addPiece(TRICK_CONJURE_SOLID_BLOCK, "Trick: Conjure Solid Block", "Conjures a solid colored block");
 		addPiece(TRICK_FILL_COLORIZER, "Trick: Fill Colorizer", "Fills a configurable colorizer with the specified color");
 		addPiece(TRICK_FILL_CASTER_COLORIZER, "Trick: Fill Caster Colorizer", "Fills a configurable colorizer in the caster's CAD with the specified color");
 	}

@@ -18,12 +18,18 @@ public class PsionicolorBlockStates extends BlockStateProvider {
 
 	@Override
 	protected void registerStatesAndModels() {
+		//simpleBlock(PsionicolorResources.SOLID_CONJURED_BLOCK.get());
+		
+		//getVariantBuilder(PsionicolorResources.SOLID_CONJURED_BLOCK.get()).partialState().setModels(new ConfiguredModel(cubeAll(PsionicolorResources.SOLID_CONJURED_BLOCK.get())));
+		
+		
 		
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {
 		//block model
 		simpleBlock(registryObject.get());
+		
 		//itemblock model
 		ResourceLocation id = registryObject.getId();
 		ResourceLocation textureLocation = new ResourceLocation(id.getNamespace(), "block/" + id.getPath());
@@ -34,4 +40,5 @@ public class PsionicolorBlockStates extends BlockStateProvider {
 		ResourceLocation name = fluid.get().getRegistryName();
 		simpleBlock(fluid.get(), models().cubeAll(name.getPath(), new ResourceLocation(name.getNamespace(), ModelProvider.BLOCK_FOLDER + "/fluid/" + name.getPath().replace("block", "still"))));
 	}
+	
 }

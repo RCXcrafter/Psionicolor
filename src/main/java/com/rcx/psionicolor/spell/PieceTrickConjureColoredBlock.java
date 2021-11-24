@@ -87,7 +87,7 @@ public class PieceTrickConjureColoredBlock extends PieceTrick {
 			colorizerStack = ((ItemEntity) colorizerVal).getItem();
 		}
 
-		conjure(context, timeVal, pos, world, messWithState(ModBlocks.conjured.getDefaultState()), colorVal, colorizerStack);
+		conjure(context, timeVal, pos, world, getState(), colorVal, colorizerStack);
 
 		return null;
 	}
@@ -117,7 +117,7 @@ public class PieceTrickConjureColoredBlock extends PieceTrick {
 		}
 	}
 
-	public BlockState messWithState(BlockState state) {
-		return state.with(BlockConjured.SOLID, true);
+	public BlockState getState() {
+		return ModBlocks.conjured.getDefaultState().with(BlockConjured.SOLID, true);
 	}
 }

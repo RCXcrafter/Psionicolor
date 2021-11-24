@@ -1,4 +1,5 @@
 {
+  "block.psionicolor.solid_conjured_block": "Conjured Block",
   "item.psionicolor.cad_colorizer_black_neon": "Neon Black CAD Colorizer",
   "item.psionicolor.cad_colorizer_blue_neon": "Neon Blue CAD Colorizer",
   "item.psionicolor.cad_colorizer_brown_neon": "Neon Brown CAD Colorizer",
@@ -47,6 +48,8 @@
   "psionicolor.spellpiece.trick_conjure_colored_block.desc": "Conjures a fragile block",
   "psionicolor.spellpiece.trick_conjure_colored_light": "Trick: Conjure Colored Light",
   "psionicolor.spellpiece.trick_conjure_colored_light.desc": "Conjures a fragile light",
+  "psionicolor.spellpiece.trick_conjure_solid_block": "Trick: Conjure Solid Block",
+  "psionicolor.spellpiece.trick_conjure_solid_block.desc": "Conjures a solid colored block",
   "psionicolor.spellpiece.trick_fill_caster_colorizer": "Trick: Fill Caster Colorizer",
   "psionicolor.spellpiece.trick_fill_caster_colorizer.desc": "Fills a configurable colorizer in the caster's CAD with the specified color",
   "psionicolor.spellpiece.trick_fill_colorizer": "Trick: Fill Colorizer",
