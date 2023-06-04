@@ -2,8 +2,8 @@ package com.rcx.psionicolor.datagen;
 
 import com.rcx.psionicolor.Psionicolor;
 
-import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class PsionicolorBlockTags extends BlockTagsProvider {
@@ -13,7 +13,7 @@ public class PsionicolorBlockTags extends BlockTagsProvider {
 	}
 
 	@Override
-	protected void registerTags() {
+	protected void addTags() {
 
 		/*tag(BlockTags.bind(new ResourceLocation(Materialis.MODID, "test").toString()))
 		.add(Blocks.DIAMOND_BLOCK)

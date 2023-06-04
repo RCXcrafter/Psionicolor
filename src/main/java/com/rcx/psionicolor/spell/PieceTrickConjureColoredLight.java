@@ -1,6 +1,6 @@
 package com.rcx.psionicolor.spell;
 
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import vazkii.psi.api.spell.EnumSpellStat;
 import vazkii.psi.api.spell.Spell;
 import vazkii.psi.api.spell.SpellCompilationException;
@@ -22,6 +22,6 @@ public class PieceTrickConjureColoredLight extends PieceTrickConjureColoredBlock
 
 	@Override
 	public BlockState getState() {
-		return ModBlocks.conjured.getDefaultState().with(BlockConjured.LIGHT, true);
+		return ModBlocks.conjured.defaultBlockState().setValue(BlockConjured.LIGHT, true);
 	}
 }

@@ -1,6 +1,6 @@
 package com.rcx.psionicolor.item;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.psi.api.cad.ICADColorizer;
@@ -39,7 +39,7 @@ public class ItemCADColorizerHybrid extends ItemCADColorizerBase {
 	@OnlyIn(Dist.CLIENT)
 	public int getContainedColor(ItemStack stack, String tag, int fallback) {
 		if (stack != null && stack.hasTag() && stack.getTag().contains(tag)) {
-			ItemStack colorizer = ItemStack.read(stack.getTag().getCompound(tag));
+			ItemStack colorizer = ItemStack.of(stack.getTag().getCompound(tag));
 			if (colorizer.getItem() instanceof ICADColorizer) {
 				return ((ICADColorizer) colorizer.getItem()).getColor(colorizer);
 			}
@@ -49,7 +49,7 @@ public class ItemCADColorizerHybrid extends ItemCADColorizerBase {
 
 	public ItemStack getContainedColorizer(ItemStack stack, String tag) {
 		if (stack != null && stack.hasTag() && stack.getTag().contains(tag)) {
-			return ItemStack.read(stack.getTag().getCompound(tag));
+			return ItemStack.of(stack.getTag().getCompound(tag));
 		}
 		return ItemStack.EMPTY;
 	}

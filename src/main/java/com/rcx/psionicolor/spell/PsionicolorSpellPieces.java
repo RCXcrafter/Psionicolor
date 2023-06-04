@@ -3,7 +3,7 @@ package com.rcx.psionicolor.spell;
 import com.rcx.psionicolor.Psionicolor;
 import com.rcx.psionicolor.datagen.PsionicolorLang;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import vazkii.psi.api.PsiAPI;
 import vazkii.psi.api.spell.Spell;
 import vazkii.psi.api.spell.SpellPiece;

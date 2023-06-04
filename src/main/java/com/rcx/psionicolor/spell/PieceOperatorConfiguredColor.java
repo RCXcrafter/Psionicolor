@@ -3,9 +3,9 @@ package com.rcx.psionicolor.spell;
 import com.rcx.psionicolor.datagen.PsionicolorLang;
 import com.rcx.psionicolor.item.ItemCADColorizerConfigurable;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
 import vazkii.psi.api.cad.ICADColorizer;
 import vazkii.psi.api.internal.Vector3;
 import vazkii.psi.api.spell.Spell;

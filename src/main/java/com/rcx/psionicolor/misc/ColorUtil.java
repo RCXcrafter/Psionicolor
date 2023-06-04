@@ -2,7 +2,7 @@ package com.rcx.psionicolor.misc;
 
 import java.util.Random;
 
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
 import vazkii.psi.client.core.handler.ClientTickHandler;
 
 public class ColorUtil {
@@ -25,6 +25,6 @@ public class ColorUtil {
 	}
 
 	public static int RGBToInt(int red, int green, int blue) {
-		return (MathHelper.clamp(red, 0, 255) << 16) | (MathHelper.clamp(green, 0, 255) << 8) | MathHelper.clamp(blue, 0, 255);
+		return (Mth.clamp(red, 0, 255) << 16) | (Mth.clamp(green, 0, 255) << 8) | Mth.clamp(blue, 0, 255);
 	}
 }

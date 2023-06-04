@@ -5,7 +5,7 @@ import com.rcx.psionicolor.PsionicolorResources;
 import com.rcx.psionicolor.item.ITooltipItem;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class PsionicolorLang extends LanguageProvider {
@@ -63,7 +63,7 @@ public class PsionicolorLang extends LanguageProvider {
 		addTooltip(PsionicolorResources.LEMON_LIME_COLORIZER.get(), "Not suitable for consumption");
 		add(PsionicolorResources.FIRE_COLORIZER.get(), "Fiery CAD Colorizer");
 		add(PsionicolorResources.RAINBOW_COLORIZER.get(), "Clown Vomit CAD Colorizer");
-		
+
 		//add(PsionicolorResources.SOLID_CONJURED_BLOCK.get(), "Conjured Block");
 
 		add(GENERIC_NAME_COLORIZER, "Colorizer");
@@ -82,7 +82,7 @@ public class PsionicolorLang extends LanguageProvider {
 	}
 
 	public void addTooltip(Item key, String tooltip) {
-		add(key.getTranslationKey() + ITooltipItem.tooltipKey, tooltip);
+		add(key.getDescriptionId() + ITooltipItem.tooltipKey, tooltip);
 	}
 
 	public void addPiece(String key, String name, String desc) {

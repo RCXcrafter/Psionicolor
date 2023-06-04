@@ -1,7 +1,7 @@
 package com.rcx.psionicolor.item;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import vazkii.psi.api.cad.ICADColorizer;
 import vazkii.psi.common.item.component.ItemCADComponent;
 

@@ -4,7 +4,7 @@ import com.rcx.psionicolor.datagen.PsionicolorLang;
 import com.rcx.psionicolor.item.ItemCADColorizerConfigurable;
 import com.rcx.psionicolor.misc.ColorUtil;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import vazkii.psi.api.PsiAPI;
 import vazkii.psi.api.cad.EnumCADComponent;
 import vazkii.psi.api.cad.ICAD;

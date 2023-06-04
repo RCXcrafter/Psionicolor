@@ -2,8 +2,8 @@ package com.rcx.psionicolor.spell;
 
 import java.util.function.Predicate;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import vazkii.psi.api.cad.ICADColorizer;
 import vazkii.psi.api.spell.Spell;
 import vazkii.psi.api.spell.SpellContext;

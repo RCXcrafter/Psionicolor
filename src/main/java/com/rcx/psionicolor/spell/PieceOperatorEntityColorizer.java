@@ -1,9 +1,9 @@
 package com.rcx.psionicolor.spell;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import vazkii.psi.api.PsiAPI;
 import vazkii.psi.api.cad.EnumCADComponent;
 import vazkii.psi.api.cad.ICAD;
@@ -31,11 +31,11 @@ public class PieceOperatorEntityColorizer extends PieceOperator {
 	public Object execute(SpellContext context) throws SpellRuntimeException {
 		Entity e = this.getParamValue(context, player);
 
-		if (e == null || !(e instanceof PlayerEntity) || PsiAPI.getPlayerCAD((PlayerEntity) e).isEmpty()) {
+		if (e == null || !(e instanceof Player) || PsiAPI.getPlayerCAD((Player) e).isEmpty()) {
 			throw new SpellRuntimeException(SpellRuntimeException.NULL_TARGET);
 		}
-		ItemStack cad = PsiAPI.getPlayerCAD((PlayerEntity) e);
-		return new ItemEntity(context.caster.world, context.focalPoint.getPosX(), context.focalPoint.getPosY(), context.focalPoint.getPosZ(), ((ICAD) cad.getItem()).getComponentInSlot(cad, EnumCADComponent.DYE));
+		ItemStack cad = PsiAPI.getPlayerCAD((Player) e);
+		return new ItemEntity(context.caster.level, context.focalPoint.getX(), context.focalPoint.getY(), context.focalPoint.getZ(), ((ICAD) cad.getItem()).getComponentInSlot(cad, EnumCADComponent.DYE));
 	}
 
 	@Override

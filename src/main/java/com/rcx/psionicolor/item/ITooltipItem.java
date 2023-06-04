@@ -4,18 +4,18 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 public interface ITooltipItem {
 
 	public static String tooltipKey = ".tooltip"; 
 
-	public default void addTooltip(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag advanced) {
-		tooltip.add(new TranslationTextComponent(stack.getItem().getTranslationKey() + tooltipKey).mergeStyle(TextFormatting.GRAY));
+	public default void addTooltip(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag advanced) {
+		tooltip.add(new TranslatableComponent(stack.getItem().getDescriptionId() + tooltipKey).withStyle(ChatFormatting.GRAY));
 	}
 }

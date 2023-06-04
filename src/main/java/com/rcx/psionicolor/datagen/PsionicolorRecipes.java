@@ -6,25 +6,24 @@ import com.rcx.psionicolor.Psionicolor;
 import com.rcx.psionicolor.PsionicolorResources;
 import com.rcx.psionicolor.misc.HybridColorizerRecipe;
 
-import net.minecraft.advancements.ICriterionInstance;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger.TriggerInstance;
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import vazkii.psi.common.Psi;
 import vazkii.psi.common.item.base.ModItems;
 import vazkii.psi.common.lib.LibItemNames;
-import vazkii.psi.common.lib.ModTags;
 
 public class PsionicolorRecipes extends RecipeProvider implements IConditionBuilder {
 
@@ -32,86 +31,87 @@ public class PsionicolorRecipes extends RecipeProvider implements IConditionBuil
 		super(gen);
 	}
 
-	public void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-		ICriterionInstance hasPsidust = hasItem(ModTags.PSIDUST);
+	@Override
+	public void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+		TriggerInstance hasPsidust = has(ModItems.psidust);
 		for (DyeColor color : DyeColor.values()) {
-			ShapelessRecipeBuilder.shapelessRecipe(Registry.ITEM.getOrDefault(new ResourceLocation(Psionicolor.modID, LibItemNames.CAD_COLORIZER + color.getString() + "_neon")))
-			.setGroup("psi:colorizer")
-			.addIngredient(Registry.ITEM.getOrDefault(Psi.location(LibItemNames.CAD_COLORIZER + color.getString())))
-			.addIngredient(Tags.Items.DUSTS_GLOWSTONE)
-			.addCriterion("has_psidust", hasPsidust)
-			.build(consumer, new ResourceLocation(Psionicolor.modID, LibItemNames.CAD_COLORIZER + color.getString() + "_neon"));
+			ShapelessRecipeBuilder.shapeless(Registry.ITEM.get(new ResourceLocation(Psionicolor.modID, LibItemNames.CAD_COLORIZER + color.getName() + "_neon")))
+			.group("psi:colorizer")
+			.requires(Registry.ITEM.get(Psi.location(LibItemNames.CAD_COLORIZER + color.getName())))
+			.requires(Tags.Items.DUSTS_GLOWSTONE)
+			.unlockedBy("has_psidust", hasPsidust)
+			.save(consumer, new ResourceLocation(Psionicolor.modID, LibItemNames.CAD_COLORIZER + color.getName() + "_neon"));
 		}
 
-		ShapedRecipeBuilder.shapedRecipe(PsionicolorResources.HYBRID_COLORIZER.get())
-		.setGroup("psi:colorizer")
-		.key('D', ModTags.PSIDUST)
-		.key('G', Tags.Items.GLASS)
-		.key('C', PsionicolorItemTags.COLORIZERS_COMPONENTS)
-		.patternLine(" D ")
-		.patternLine("GCG")
-		.patternLine(" C ")
-		.addCriterion("has_psidust", hasItem(ModTags.PSIDUST))
-		.build(ConsumerWrapperBuilder.wrap(HybridColorizerRecipe.SERIALIZER).build(consumer), new ResourceLocation(Psionicolor.modID, "cad_colorizer_hybrid"));
+		ShapedRecipeBuilder.shaped(PsionicolorResources.HYBRID_COLORIZER.get())
+		.group("psi:colorizer")
+		.define('D', ModItems.psidust)
+		.define('G', Tags.Items.GLASS)
+		.define('C', PsionicolorItemTags.COLORIZERS_COMPONENTS)
+		.pattern(" D ")
+		.pattern("GCG")
+		.pattern(" C ")
+		.unlockedBy("has_psidust", has(ModItems.psidust))
+		.save(ConsumerWrapperBuilder.wrap(HybridColorizerRecipe.SERIALIZER).build(consumer), new ResourceLocation(Psionicolor.modID, "cad_colorizer_hybrid"));
 
-		ShapedRecipeBuilder.shapedRecipe(PsionicolorResources.INDICATOR_COLORIZER.get())
-		.setGroup("psi:colorizer")
-		.key('D', ModTags.PSIDUST)
-		.key('B', ModItems.cadBatteryBasic)
-		.key('G', Tags.Items.GLASS)
-		.key('C', PsionicolorItemTags.COLORIZERS_COMPONENTS)
-		.patternLine(" D ")
-		.patternLine("BCG")
-		.patternLine(" C ")
-		.addCriterion("has_psidust", hasItem(ModTags.PSIDUST))
-		.build(ConsumerWrapperBuilder.wrap(HybridColorizerRecipe.SERIALIZER).build(consumer), new ResourceLocation(Psionicolor.modID, "cad_colorizer_indicator"));
+		ShapedRecipeBuilder.shaped(PsionicolorResources.INDICATOR_COLORIZER.get())
+		.group("psi:colorizer")
+		.define('D', ModItems.psidust)
+		.define('B', ModItems.cadBatteryBasic)
+		.define('G', Tags.Items.GLASS)
+		.define('C', PsionicolorItemTags.COLORIZERS_COMPONENTS)
+		.pattern(" D ")
+		.pattern("BCG")
+		.pattern(" C ")
+		.unlockedBy("has_psidust", has(ModItems.psidust))
+		.save(ConsumerWrapperBuilder.wrap(HybridColorizerRecipe.SERIALIZER).build(consumer), new ResourceLocation(Psionicolor.modID, "cad_colorizer_indicator"));
 
-		ShapedRecipeBuilder.shapedRecipe(PsionicolorResources.TRIGGERED_COLORIZER.get())
-		.setGroup("psi:colorizer")
-		.key('D', ModTags.PSIDUST)
-		.key('B', Items.STONE_BUTTON)
-		.key('G', Tags.Items.GLASS)
-		.key('C', PsionicolorItemTags.COLORIZERS_COMPONENTS)
-		.patternLine(" DB")
-		.patternLine("GCG")
-		.patternLine(" C ")
-		.addCriterion("has_psidust", hasItem(ModTags.PSIDUST))
-		.build(ConsumerWrapperBuilder.wrap(HybridColorizerRecipe.SERIALIZER).build(consumer), new ResourceLocation(Psionicolor.modID, "cad_colorizer_triggered"));
+		ShapedRecipeBuilder.shaped(PsionicolorResources.TRIGGERED_COLORIZER.get())
+		.group("psi:colorizer")
+		.define('D', ModItems.psidust)
+		.define('B', Items.STONE_BUTTON)
+		.define('G', Tags.Items.GLASS)
+		.define('C', PsionicolorItemTags.COLORIZERS_COMPONENTS)
+		.pattern(" DB")
+		.pattern("GCG")
+		.pattern(" C ")
+		.unlockedBy("has_psidust", has(ModItems.psidust))
+		.save(ConsumerWrapperBuilder.wrap(HybridColorizerRecipe.SERIALIZER).build(consumer), new ResourceLocation(Psionicolor.modID, "cad_colorizer_triggered"));
 
 
-		ShapelessRecipeBuilder.shapelessRecipe(PsionicolorResources.CONFIGURABLE_COLORIZER.get())
-		.setGroup("psi:colorizer")
-		.addIngredient(ModItems.cadColorizerEmpty)
-		.addIngredient(Tags.Items.DYES_CYAN)
-		.addIngredient(Tags.Items.DYES_YELLOW)
-		.addIngredient(Tags.Items.DYES_MAGENTA)
-		.addIngredient(ModTags.EBONY_SUBSTANCE)
-		.addCriterion("has_ebony", hasItem(ModTags.EBONY_SUBSTANCE))
-		.build(consumer, new ResourceLocation(Psionicolor.modID, "cad_colorizer_configurable"));
+		ShapelessRecipeBuilder.shapeless(PsionicolorResources.CONFIGURABLE_COLORIZER.get())
+		.group("psi:colorizer")
+		.requires(ModItems.cadColorizerEmpty)
+		.requires(Tags.Items.DYES_CYAN)
+		.requires(Tags.Items.DYES_YELLOW)
+		.requires(Tags.Items.DYES_MAGENTA)
+		.requires(ModItems.ebonySubstance)
+		.unlockedBy("has_ebony", has(ModItems.ebonySubstance))
+		.save(consumer, new ResourceLocation(Psionicolor.modID, "cad_colorizer_configurable"));
 
-		standardColorizerRecipe(consumer, PsionicolorResources.CLOCK_COLORIZER.get(), Ingredient.fromItems(Items.CLOCK));
+		standardColorizerRecipe(consumer, PsionicolorResources.CLOCK_COLORIZER.get(), Ingredient.of(Items.CLOCK));
 
-		standardColorizerRecipe(consumer, PsionicolorResources.ROCKIN_COLORIZER.get(), Ingredient.fromItems(Items.COOKED_BEEF));
+		standardColorizerRecipe(consumer, PsionicolorResources.ROCKIN_COLORIZER.get(), Ingredient.of(Items.COOKED_BEEF));
 
-		standardColorizerRecipe(consumer, PsionicolorResources.RANDOM_COLORIZER.get(), Ingredient.fromItems(Items.WHEAT_SEEDS));
+		standardColorizerRecipe(consumer, PsionicolorResources.RANDOM_COLORIZER.get(), Ingredient.of(Items.WHEAT_SEEDS));
 
-		standardColorizerRecipe(consumer, PsionicolorResources.GRAPE_COLORIZER.get(), Ingredient.fromItems(Items.CHORUS_FRUIT));
-		standardColorizerRecipe(consumer, PsionicolorResources.LEMON_LIME_COLORIZER.get(), Ingredient.fromItems(Items.POISONOUS_POTATO));
+		standardColorizerRecipe(consumer, PsionicolorResources.GRAPE_COLORIZER.get(), Ingredient.of(Items.CHORUS_FRUIT));
+		standardColorizerRecipe(consumer, PsionicolorResources.LEMON_LIME_COLORIZER.get(), Ingredient.of(Items.POISONOUS_POTATO));
 
-		standardColorizerRecipe(consumer, PsionicolorResources.FIRE_COLORIZER.get(), Ingredient.fromItems(Items.BLAZE_POWDER));
+		standardColorizerRecipe(consumer, PsionicolorResources.FIRE_COLORIZER.get(), Ingredient.of(Items.BLAZE_POWDER));
 	}
 
-	public void standardColorizerRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider result, Ingredient center) {
-		ShapedRecipeBuilder.shapedRecipe(result)
-		.setGroup("psi:colorizer")
-		.key('D', ModTags.PSIDUST)
-		.key('I', Tags.Items.INGOTS_IRON)
-		.key('G', Tags.Items.GLASS)
-		.key('C', center)
-		.patternLine(" D ")
-		.patternLine("GCG")
-		.patternLine(" I ")
-		.addCriterion("has_psidust", hasItem(ModTags.PSIDUST))
-		.build(consumer, result.asItem().getRegistryName());
+	public void standardColorizerRecipe(Consumer<FinishedRecipe> consumer, ItemLike result, Ingredient center) {
+		ShapedRecipeBuilder.shaped(result)
+		.group("psi:colorizer")
+		.define('D', ModItems.psidust)
+		.define('I', Tags.Items.INGOTS_IRON)
+		.define('G', Tags.Items.GLASS)
+		.define('C', center)
+		.pattern(" D ")
+		.pattern("GCG")
+		.pattern(" I ")
+		.unlockedBy("has_psidust", has(ModItems.psidust))
+		.save(consumer, result.asItem().getRegistryName());
 	}
 }

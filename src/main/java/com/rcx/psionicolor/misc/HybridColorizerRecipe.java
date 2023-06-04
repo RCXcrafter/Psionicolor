@@ -15,22 +15,22 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.rcx.psionicolor.item.ItemCADColorizerHybrid;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import vazkii.psi.api.cad.ICADColorizer;
 
 public class HybridColorizerRecipe extends ShapedRecipe {
 
 	static int MAX_WIDTH = 3;
 	static int MAX_HEIGHT = 3;
-	public static final IRecipeSerializer<HybridColorizerRecipe> SERIALIZER = new Serializer();
+	public static final RecipeSerializer<HybridColorizerRecipe> SERIALIZER = new Serializer();
 
 	public HybridColorizerRecipe(ResourceLocation idIn, String groupIn, int recipeWidthIn, int recipeHeightIn, NonNullList<Ingredient> recipeItemsIn, ItemStack recipeOutputIn) {
 		super(idIn, groupIn, recipeHeightIn, recipeHeightIn, recipeItemsIn, recipeOutputIn);
@@ -38,12 +38,12 @@ public class HybridColorizerRecipe extends ShapedRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
-		ItemStack result = super.getCraftingResult(inv);
+	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+		ItemStack result = super.assemble(inv);
 		if (!result.isEmpty()) {
 			boolean primary = true;
-			for (int i = 0; i < inv.getSizeInventory(); i++) {
-				ItemStack stack = inv.getStackInSlot(i).copy();
+			for (int i = 0; i < inv.getContainerSize(); i++) {
+				ItemStack stack = inv.getItem(i).copy();
 				if (!stack.isEmpty() && stack.getItem() instanceof ICADColorizer) {
 					if (stack.hasTag() && stack.getTag().contains("psi_contributor_name"))
 						stack.getTag().remove("psi_contributor_name");
@@ -75,25 +75,25 @@ public class HybridColorizerRecipe extends ShapedRecipe {
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
-	private static NonNullList<Ingredient> deserializeIngredients(String[] pattern, Map<String, Ingredient> keys, int patternWidth, int patternHeight) {
-		NonNullList<Ingredient> nonnulllist = NonNullList.withSize(patternWidth * patternHeight, Ingredient.EMPTY);
-		Set<String> set = Sets.newHashSet(keys.keySet());
+	static NonNullList<Ingredient> dissolvePattern(String[] p_44203_, Map<String, Ingredient> p_44204_, int p_44205_, int p_44206_) {
+		NonNullList<Ingredient> nonnulllist = NonNullList.withSize(p_44205_ * p_44206_, Ingredient.EMPTY);
+		Set<String> set = Sets.newHashSet(p_44204_.keySet());
 		set.remove(" ");
 
-		for(int i = 0; i < pattern.length; ++i) {
-			for(int j = 0; j < pattern[i].length(); ++j) {
-				String s = pattern[i].substring(j, j + 1);
-				Ingredient ingredient = keys.get(s);
+		for(int i = 0; i < p_44203_.length; ++i) {
+			for(int j = 0; j < p_44203_[i].length(); ++j) {
+				String s = p_44203_[i].substring(j, j + 1);
+				Ingredient ingredient = p_44204_.get(s);
 				if (ingredient == null) {
 					throw new JsonSyntaxException("Pattern references symbol '" + s + "' but it's not defined in the key");
 				}
 
 				set.remove(s);
-				nonnulllist.set(j + patternWidth * i, ingredient);
+				nonnulllist.set(j + p_44205_ * i, ingredient);
 			}
 		}
 
@@ -156,15 +156,15 @@ public class HybridColorizerRecipe extends ShapedRecipe {
 		return i;
 	}
 
-	private static String[] patternFromJson(JsonArray jsonArr) {
-		String[] astring = new String[jsonArr.size()];
+	static String[] patternFromJson(JsonArray p_44197_) {
+		String[] astring = new String[p_44197_.size()];
 		if (astring.length > MAX_HEIGHT) {
 			throw new JsonSyntaxException("Invalid pattern: too many rows, " + MAX_HEIGHT + " is maximum");
 		} else if (astring.length == 0) {
 			throw new JsonSyntaxException("Invalid pattern: empty pattern not allowed");
 		} else {
 			for(int i = 0; i < astring.length; ++i) {
-				String s = JSONUtils.getString(jsonArr.get(i), "pattern[" + i + "]");
+				String s = GsonHelper.convertToString(p_44197_.get(i), "pattern[" + i + "]");
 				if (s.length() > MAX_WIDTH) {
 					throw new JsonSyntaxException("Invalid pattern: too many columns, " + MAX_WIDTH + " is maximum");
 				}
@@ -180,13 +180,10 @@ public class HybridColorizerRecipe extends ShapedRecipe {
 		}
 	}
 
-	/**
-	 * Returns a key json object as a Java HashMap.
-	 */
-	private static Map<String, Ingredient> deserializeKey(JsonObject json) {
+	static Map<String, Ingredient> keyFromJson(JsonObject p_44211_) {
 		Map<String, Ingredient> map = Maps.newHashMap();
 
-		for(Entry<String, JsonElement> entry : json.entrySet()) {
+		for(Entry<String, JsonElement> entry : p_44211_.entrySet()) {
 			if (entry.getKey().length() != 1) {
 				throw new JsonSyntaxException("Invalid key entry: '" + (String)entry.getKey() + "' is an invalid symbol (must be 1 character only).");
 			}
@@ -195,53 +192,49 @@ public class HybridColorizerRecipe extends ShapedRecipe {
 				throw new JsonSyntaxException("Invalid key entry: ' ' is a reserved symbol.");
 			}
 
-			map.put(entry.getKey(), Ingredient.deserialize(entry.getValue()));
+			map.put(entry.getKey(), Ingredient.fromJson(entry.getValue()));
 		}
 
 		map.put(" ", Ingredient.EMPTY);
 		return map;
 	}
 
-	public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<HybridColorizerRecipe> {
-
-		@Override
-		public HybridColorizerRecipe read(ResourceLocation recipeId, JsonObject json) {
-			String s = JSONUtils.getString(json, "group", "");
-			Map<String, Ingredient> map = deserializeKey(JSONUtils.getJsonObject(json, "key"));
-			String[] astring = shrink(patternFromJson(JSONUtils.getJsonArray(json, "pattern")));
+	public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>>  implements RecipeSerializer<HybridColorizerRecipe> {
+		public HybridColorizerRecipe fromJson(ResourceLocation p_44236_, JsonObject p_44237_) {
+			String s = GsonHelper.getAsString(p_44237_, "group", "");
+			Map<String, Ingredient> map = HybridColorizerRecipe.keyFromJson(GsonHelper.getAsJsonObject(p_44237_, "key"));
+			String[] astring = HybridColorizerRecipe.shrink(HybridColorizerRecipe.patternFromJson(GsonHelper.getAsJsonArray(p_44237_, "pattern")));
 			int i = astring[0].length();
 			int j = astring.length;
-			NonNullList<Ingredient> nonnulllist = deserializeIngredients(astring, map, i, j);
-			ItemStack itemstack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "result"));
-			return new HybridColorizerRecipe(recipeId, s, i, j, nonnulllist, itemstack);
+			NonNullList<Ingredient> nonnulllist = HybridColorizerRecipe.dissolvePattern(astring, map, i, j);
+			ItemStack itemstack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(p_44237_, "result"));
+			return new HybridColorizerRecipe(p_44236_, s, i, j, nonnulllist, itemstack);
 		}
 
-		@Override
-		public HybridColorizerRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-			int i = buffer.readVarInt();
-			int j = buffer.readVarInt();
-			String s = buffer.readString(32767);
+		public HybridColorizerRecipe fromNetwork(ResourceLocation p_44239_, FriendlyByteBuf p_44240_) {
+			int i = p_44240_.readVarInt();
+			int j = p_44240_.readVarInt();
+			String s = p_44240_.readUtf();
 			NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i * j, Ingredient.EMPTY);
 
 			for(int k = 0; k < nonnulllist.size(); ++k) {
-				nonnulllist.set(k, Ingredient.read(buffer));
+				nonnulllist.set(k, Ingredient.fromNetwork(p_44240_));
 			}
 
-			ItemStack itemstack = buffer.readItemStack();
-			return new HybridColorizerRecipe(recipeId, s, i, j, nonnulllist, itemstack);
+			ItemStack itemstack = p_44240_.readItem();
+			return new HybridColorizerRecipe(p_44239_, s, i, j, nonnulllist, itemstack);
 		}
 
-		@Override
-		public void write(PacketBuffer buffer, HybridColorizerRecipe recipe) {
-			buffer.writeVarInt(recipe.getRecipeWidth());
-			buffer.writeVarInt(recipe.getHeight());
-			buffer.writeString(recipe.getGroup());
+		public void toNetwork(FriendlyByteBuf p_44227_, HybridColorizerRecipe p_44228_) {
+			p_44227_.writeVarInt(p_44228_.getWidth());
+			p_44227_.writeVarInt(p_44228_.getHeight());
+			p_44227_.writeUtf(p_44228_.getGroup());
 
-			for(Ingredient ingredient : recipe.getIngredients()) {
-				ingredient.write(buffer);
+			for(Ingredient ingredient : p_44228_.getIngredients()) {
+				ingredient.toNetwork(p_44227_);
 			}
 
-			buffer.writeItemStack(recipe.getRecipeOutput());
+			p_44227_.writeItem(p_44228_.getResultItem());
 		}
 	}
 }

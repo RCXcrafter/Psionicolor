@@ -7,13 +7,13 @@ import com.rcx.psionicolor.datagen.PsionicolorLang;
 import com.rcx.psionicolor.item.ItemCADColorizerConfigurable;
 import com.rcx.psionicolor.misc.ColorUtil;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import vazkii.psi.api.cad.ICADColorizer;
 import vazkii.psi.api.internal.Vector3;
 import vazkii.psi.api.spell.EnumSpellStat;
@@ -76,9 +76,9 @@ public class PieceTrickConjureColoredBlock extends PieceTrick {
 			throw new SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS);
 		}
 		BlockPos pos = positionVal.toBlockPos();
-		World world = context.focalPoint.getEntityWorld();
+		Level world = context.focalPoint.getLevel();
 
-		if (!world.isBlockModifiable(context.caster, pos)) {
+		if (!world.mayInteract(context.caster, pos)) {
 			return null;
 		}
 
@@ -92,15 +92,15 @@ public class PieceTrickConjureColoredBlock extends PieceTrick {
 		return null;
 	}
 
-	public static void conjure(SpellContext context, @Nullable Number timeVal, BlockPos pos, World world, BlockState state, @Nullable Vector3 color, @Nullable ItemStack colorizer) {
+	public static void conjure(SpellContext context, @Nullable Number timeVal, BlockPos pos, Level world, BlockState state, @Nullable Vector3 color, @Nullable ItemStack colorizer) {
 		if (color != null || colorizer != ItemStack.EMPTY) {
 			if (world.getBlockState(pos).getBlock() != state.getBlock()) {
 				if (PieceTrickConjureBlock.conjure(world, pos, context.caster, state)) {
 					if (timeVal != null && timeVal.intValue() > 0) {
 						int val = timeVal.intValue();
-						world.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), val);
+						world.scheduleTick(pos, state.getBlock(), val);
 					}
-					TileEntity tile = world.getTileEntity(pos);
+					BlockEntity tile = world.getBlockEntity(pos);
 
 					if (colorizer == ItemStack.EMPTY) {
 						colorizer = new ItemStack(PsionicolorResources.CONFIGURABLE_COLORIZER.get());
@@ -118,6 +118,6 @@ public class PieceTrickConjureColoredBlock extends PieceTrick {
 	}
 
 	public BlockState getState() {
-		return ModBlocks.conjured.getDefaultState().with(BlockConjured.SOLID, true);
+		return ModBlocks.conjured.defaultBlockState().setValue(BlockConjured.SOLID, true);
 	}
 }

@@ -17,11 +17,11 @@ import com.rcx.psionicolor.item.ItemCADColorizerSlidingColors;
 import com.rcx.psionicolor.item.ItemCADColorizerSwitchingColors;
 import com.rcx.psionicolor.item.ItemCADColorizerTriggered;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import vazkii.psi.common.core.PsiCreativeTab;
 
 public class PsionicolorResources {
@@ -46,7 +46,7 @@ public class PsionicolorResources {
 
 	public static List<colorizerInfo> colorizers = new ArrayList<colorizerInfo>();
 
-	public static Item.Properties psiProps = new Item.Properties().group(PsiCreativeTab.INSTANCE);
+	public static Item.Properties psiProps = new Item.Properties().tab(PsiCreativeTab.INSTANCE);
 
 	//hybrid suspension colorizers
 	public static final RegistryObject<Item> HYBRID_COLORIZER = registerColorizer("cad_colorizer_hybrid", () -> new ItemCADColorizerHybrid(psiProps), true, true);

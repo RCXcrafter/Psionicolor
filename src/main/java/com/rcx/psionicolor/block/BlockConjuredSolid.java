@@ -1,24 +1,16 @@
 package com.rcx.psionicolor.block;
 
-import java.util.Random;
+/*import java.util.Random;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.psi.api.internal.PsiRenderHelper;
@@ -143,4 +135,4 @@ public class BlockConjuredSolid extends Block {
 	public TileEntity createTileEntity(@Nonnull BlockState state, IBlockReader world) {
 		return new TileConjured();
 	}
-}
+}*/

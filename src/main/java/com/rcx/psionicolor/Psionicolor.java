@@ -15,14 +15,13 @@ import com.rcx.psionicolor.item.ItemCADColorizerHybrid;
 import com.rcx.psionicolor.misc.HybridColorizerRecipe;
 import com.rcx.psionicolor.spell.PsionicolorSpellPieces;
 
-import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.data.BlockTagsProvider;
+import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -35,8 +34,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import vazkii.psi.api.cad.CADTakeEvent;
 import vazkii.psi.api.cad.EnumCADComponent;
 import vazkii.psi.api.cad.ICAD;
@@ -73,7 +72,7 @@ public class Psionicolor {
 			if (cadItem instanceof ICAD) {
 				ItemStack dyeStack = ((ICAD) cadItem).getComponentInSlot(event.getCad(), EnumCADComponent.DYE);
 				if (dyeStack.getItem() instanceof IPlayerboundColorizer) {
-					dyeStack.getOrCreateTag().putUniqueId(IPlayerboundColorizer.OWNING_PLAYER, PlayerEntity.getUUID(event.getPlayer().getGameProfile()));
+					dyeStack.getOrCreateTag().putUUID(IPlayerboundColorizer.OWNING_PLAYER, event.getPlayer().getUUID());
 					ItemCAD.setComponent(event.getCad(), dyeStack);
 				}
 			}
@@ -82,10 +81,10 @@ public class Psionicolor {
 		@SubscribeEvent
 		public void onSpellCast(PreSpellCastEvent event) {
 			ItemStack dyeStack = ((ICAD) event.getCad().getItem()).getComponentInSlot(event.getCad(), EnumCADComponent.DYE);
-			if (updateTriggeredColorizer(dyeStack, event.getCad(), event.getPlayer().world.getGameTime()))
+			if (updateTriggeredColorizer(dyeStack, event.getCad(), event.getPlayer().level.getGameTime()))
 				ItemCAD.setComponent(event.getCad(), dyeStack);
 			if (dyeStack.getItem() instanceof IPlayerboundColorizer) {
-				dyeStack.getOrCreateTag().putUniqueId(IPlayerboundColorizer.OWNING_PLAYER, PlayerEntity.getUUID(event.getPlayer().getGameProfile()));
+				dyeStack.getOrCreateTag().putUUID(IPlayerboundColorizer.OWNING_PLAYER, event.getPlayer().getUUID());
 				ItemCAD.setComponent(event.getCad(), dyeStack);
 			}
 		}
@@ -114,13 +113,13 @@ public class Psionicolor {
 		@SubscribeEvent
 		public void craftColorizer(PlayerEvent.ItemCraftedEvent event) {
 			if (event.getCrafting().getItem() instanceof IPlayerboundColorizer) {
-				event.getCrafting().getOrCreateTag().putUniqueId(IPlayerboundColorizer.OWNING_PLAYER, PlayerEntity.getUUID(event.getPlayer().getGameProfile()));
+				event.getCrafting().getOrCreateTag().putUUID(IPlayerboundColorizer.OWNING_PLAYER, event.getPlayer().getUUID());
 			}
 		}
 	}
 
 	@SubscribeEvent
-	public static void registerSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+	public static void registerSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
 		HybridColorizerRecipe.SERIALIZER.setRegistryName(new ResourceLocation(modID, "crafting_hybrid_colorizer_shaped"));
 		event.getRegistry().register(HybridColorizerRecipe.SERIALIZER);
 	}
